@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 public class DataBase {
     public static Connection getConnection() {
         try {
-            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/db_lesson", "postgres", "root");
+            Connection con = DriverManager.getConnection("jdbc:postgresql://localhost:5432/db_lesson", "postgres", "12345");
             return con;
         } catch (SQLException e) {
             System.out.println(e.getSQLState());

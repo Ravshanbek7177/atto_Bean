@@ -2,18 +2,33 @@ package org.example.controller;
 
 
 import org.example.container.ComponentContainer;
+import org.example.dto.Card;
 import org.example.dto.Terminal;
+import org.example.dto.Transaction;
+import org.example.repository.CardRepository;
+import org.example.repository.TransactionRepository;
+import org.example.service.CardService;
 import org.example.service.ProfileService;
 import org.example.service.TerminalService;
 import org.example.util.ScannerUtil;
 
+import java.time.LocalDate;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Scanner;
 
 public class AdminController {
 
-    //    private CardService cardService = new CardService();
-    private ProfileService profileService = new ProfileService();
-    private TerminalService terminalService = new TerminalService();
+    private CardService cardService;
+    private ProfileService profileService ;
+    private TerminalService terminalService ;
+    private TransactionRepository transactionRepository;
+    private CardRepository cardRepository;
+    private List<Transaction> transactionList = new LinkedList<>();
+
+    public AdminController() {
+    }
+
 
     public void start() {
         boolean b = true;
@@ -58,7 +73,8 @@ public class AdminController {
                     changeProfileStatus();
                     break;
                 case 13:
-                    transactionList();
+                    List<Transaction> transactionList1 = transactionList();
+                    this.transactionList = transactionList1;
                     break;
                 case 14:
                     cardCompany();
@@ -123,15 +139,13 @@ public class AdminController {
         System.out.print("Enter card number: ");
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();
-
         System.out.print("Enter card expired date (yyyy.MM.dd): ");
         String expiredDate = scanner.nextLine();
-
-        ComponentContainer.cardService.adminCreateCard(cardNumber, expiredDate);
+        cardService.adminCreateCard(cardNumber, expiredDate);
     }
 
     private void cardList() {
-        ComponentContainer.cardService.cardList();
+        cardService.cardList();
     }
 
     private void deleteCard() {
@@ -139,7 +153,7 @@ public class AdminController {
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();
 
-        ComponentContainer.cardService.adminDeleteCard(cardNumber);
+       cardService.adminDeleteCard(cardNumber);
     }
 
     private void changeCardStatus() {
@@ -147,7 +161,7 @@ public class AdminController {
         Scanner scanner = new Scanner(System.in);
         String cardNumber = scanner.nextLine();
 
-        ComponentContainer.cardService.adminChangeStatus(cardNumber);
+        cardService.adminChangeStatus(cardNumber);
     }
 
     private void updateCard() {
@@ -158,7 +172,7 @@ public class AdminController {
         System.out.print("Enter card expired date (yyyy.MM.dd): ");
         String expiredDate = scanner.nextLine();
 
-        ComponentContainer.cardService.adminUpdateCard(cardNumber, expiredDate);
+       cardService.adminUpdateCard(cardNumber, expiredDate);
     }
 
 
@@ -233,14 +247,19 @@ public class AdminController {
 
     /**
      * Transaction
+     *
+     * @return
      */
 
-    private void transactionList() {
-
+    private List<Transaction> transactionList() {
+        List<Transaction> transactionList = transactionRepository.admintransactionList();
+        transactionList.forEach(System.out::println);
+        return transactionList;
     }
 
     private void cardCompany() {
-
+        Card card = cardRepository.getCardByNumber("5555");
+        System.out.println("Balance -> " + card.getBalance());
     }
 
     /**
@@ -248,10 +267,31 @@ public class AdminController {
      */
 
     private void todayTransactionList() {
-
+        List<Transaction> transactionList = transactionRepository.admintransactionList();
+        for (Transaction transaction : transactionList) {
+            if (transaction.getCreatedDate().getDayOfMonth() == LocalDate.now().getDayOfMonth()) {
+                System.out.println(transaction);
+            }
+        }
     }
 
     private void transactionByDay() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Enter date of month: ");
+        String date = scanner.nextLine();
+        System.out.println("Enter month: ");
+        String month = scanner.nextLine();
+        System.out.println("Enter year: ");
+        String year = scanner.nextLine();
+        List<Transaction> transactionList = transactionRepository.admintransactionList();
+        for (Transaction transaction : transactionList) {
+            if ((String.valueOf(transaction.getCreatedDate().getDayOfMonth()).equals(date)) &&
+                    (String.valueOf(transaction.getCreatedDate().getMonthValue()).equals(month)) &&
+                    (String.valueOf(transaction.getCreatedDate().getYear()).equals(year))) {
+                System.out.println(transaction);
+            }
+        }
+
 
     }
 
@@ -272,4 +312,43 @@ public class AdminController {
     }
 
 
+    public void setProfileService(ProfileService profileService) {
+        this.profileService = profileService;
+    }
+
+    public ProfileService getProfileService() {
+        return profileService;
+    }
+
+    public void setTerminalService(TerminalService terminalService) {
+        this.terminalService = terminalService;
+    }
+
+    public TerminalService getTerminalService() {
+        return terminalService;
+    }
+
+    public void setCardService(CardService cardService) {
+        this.cardService = cardService;
+    }
+
+    public CardService getCardService() {
+        return cardService;
+    }
+
+    public void setTransactionRepository(TransactionRepository transactionRepository) {
+        this.transactionRepository = transactionRepository;
+    }
+
+    public TransactionRepository getTransactionRepository() {
+        return transactionRepository;
+    }
+
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
+
+    public CardRepository getCardRepository() {
+        return cardRepository;
+    }
 }

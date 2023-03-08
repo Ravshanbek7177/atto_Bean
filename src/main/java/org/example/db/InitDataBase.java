@@ -14,6 +14,9 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 
 public class InitDataBase {
+    private static ProfileRepository profileRepository;
+    private static CardRepository cardRepository ;
+
 
     public static void adminInit() {
 
@@ -27,7 +30,7 @@ public class InitDataBase {
         profile.setRole(ProfileRole.ADMIN);
 
 
-        ProfileRepository profileRepository = ComponentContainer.profileRepository;
+
 
         Profile profile1 = profileRepository.getProfileByPhone(profile.getPhone());
         if (profile1 != null) {
@@ -46,7 +49,6 @@ public class InitDataBase {
         card.setCreatedDate(LocalDateTime.now());
         card.setStatus(GeneralStatus.ACTIVE);
 
-        CardRepository cardRepository = ComponentContainer.cardRepository;
         Card exists = cardRepository.getCardByNumber(card.getCardNumber());
 
         if (exists != null) {
@@ -54,4 +56,14 @@ public class InitDataBase {
         }
         cardRepository.save(card);
     }
+
+    public void setProfileRepository(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
+    }
+
+
+    public void setCardRepository(CardRepository cardRepository) {
+        this.cardRepository = cardRepository;
+    }
+
 }
