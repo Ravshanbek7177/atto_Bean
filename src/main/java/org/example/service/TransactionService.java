@@ -5,9 +5,10 @@ import org.example.container.ComponentContainer;
 import org.example.dto.Transaction;
 import org.example.enums.TransactionType;
 import org.example.repository.TransactionRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
-
+@Service
 public class TransactionService {
     private TransactionRepository transactionRepository;
     public void createTransaction(Integer cardId, Integer terminalId, Double amount, TransactionType type) {

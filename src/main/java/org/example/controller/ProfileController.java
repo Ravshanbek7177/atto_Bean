@@ -6,8 +6,10 @@ import org.example.container.ComponentContainer;
 import org.example.dto.Profile;
 import org.example.service.CardService;
 import org.example.util.ScannerUtil;
+import org.springframework.stereotype.Component;
 
 import java.util.Scanner;
+@Component
 
 public class ProfileController {
     private CardService cardService ;

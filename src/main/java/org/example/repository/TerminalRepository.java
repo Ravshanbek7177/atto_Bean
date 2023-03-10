@@ -3,11 +3,12 @@ package org.example.repository;
 import org.example.db.DataBase;
 import org.example.dto.Terminal;
 import org.example.enums.GeneralStatus;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-
+@Repository
 public class TerminalRepository {
 
     public int save(Terminal terminal) {

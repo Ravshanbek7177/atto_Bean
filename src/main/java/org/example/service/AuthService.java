@@ -9,13 +9,17 @@ import org.example.enums.GeneralStatus;
 import org.example.enums.ProfileRole;
 import org.example.repository.ProfileRepository;
 import org.example.util.MD5Util;
+import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
 
+@Service
 public class AuthService {
   private   ProfileRepository profileRepository;
-    public AuthService() {
 
+    public AuthService(ProfileRepository profileRepository) {
+        this.profileRepository = profileRepository;
     }
 
     public void login(String phone, String password) {
@@ -64,7 +68,5 @@ public class AuthService {
         }
     }
 
-    public void setProfileRepository(ProfileRepository profileRepository) {
-        this.profileRepository = profileRepository;
-    }
+
 }

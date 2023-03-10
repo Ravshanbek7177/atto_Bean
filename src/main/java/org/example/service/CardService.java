@@ -6,11 +6,13 @@ import org.example.dto.Card;
 import org.example.enums.GeneralStatus;
 import org.example.enums.TransactionType;
 import org.example.repository.CardRepository;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+@Component
 
 public class CardService {
 
@@ -182,8 +184,8 @@ public class CardService {
     }
 
 
-    public void setTransactionService(TerminalService transactionService) {
-
+    public void setTransactionService(TransactionService transactionService) {
+        this.transactionService = transactionService;
     }
 }
 

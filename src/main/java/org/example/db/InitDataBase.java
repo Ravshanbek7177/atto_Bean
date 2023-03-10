@@ -32,7 +32,7 @@ public class InitDataBase {
 
 
 
-        Profile profile1 = profileRepository.getProfileByPhone(profile.getPhone());
+        Profile profile1 = profileRepository.getProfileByPhone(profile.getPassword());
         if (profile1 != null) {
             return;
         }

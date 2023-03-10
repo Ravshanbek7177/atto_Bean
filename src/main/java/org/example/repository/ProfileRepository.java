@@ -5,6 +5,7 @@ import org.example.db.DataBase;
 import org.example.dto.Profile;
 import org.example.enums.GeneralStatus;
 import org.example.enums.ProfileRole;
+import org.springframework.stereotype.Repository;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.LinkedList;
 import java.util.List;
-
+@Repository
 public class ProfileRepository {
     public Profile getProfileByPhoneAndPassword(String phone, String password) {
         Connection connection = null;

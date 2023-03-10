@@ -4,11 +4,12 @@ package org.example.repository;
 import org.example.db.DataBase;
 import org.example.dto.Transaction;
 import org.example.enums.TransactionType;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.LinkedList;
 import java.util.List;
-
+@Repository
 public class TransactionRepository {
 
     public int createTransaction(Transaction transaction) {

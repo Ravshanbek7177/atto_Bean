@@ -11,19 +11,19 @@ import org.example.service.CardService;
 import org.example.service.ProfileService;
 import org.example.service.TerminalService;
 import org.example.util.ScannerUtil;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Scanner;
+@Component
 
 public class AdminController {
 
     private CardService cardService;
     private ProfileService profileService ;
     private TerminalService terminalService ;
-    private TransactionRepository transactionRepository;
-    private CardRepository cardRepository;
     private List<Transaction> transactionList = new LinkedList<>();
 
     public AdminController() {
@@ -73,8 +73,7 @@ public class AdminController {
                     changeProfileStatus();
                     break;
                 case 13:
-                    List<Transaction> transactionList1 = transactionList();
-                    this.transactionList = transactionList1;
+
                     break;
                 case 14:
                     cardCompany();
@@ -251,15 +250,15 @@ public class AdminController {
      * @return
      */
 
-    private List<Transaction> transactionList() {
+   /* private List<Transaction> transactionList() {
         List<Transaction> transactionList = transactionRepository.admintransactionList();
         transactionList.forEach(System.out::println);
         return transactionList;
-    }
+    }*/
 
     private void cardCompany() {
-        Card card = cardRepository.getCardByNumber("5555");
-        System.out.println("Balance -> " + card.getBalance());
+      /*  Card card = cardRepository.getCardByNumber("5555");
+        System.out.println("Balance -> " + card.getBalance());*/
     }
 
     /**
@@ -267,16 +266,16 @@ public class AdminController {
      */
 
     private void todayTransactionList() {
-        List<Transaction> transactionList = transactionRepository.admintransactionList();
+     /*   List<Transaction> transactionList = transactionRepository.admintransactionList();
         for (Transaction transaction : transactionList) {
             if (transaction.getCreatedDate().getDayOfMonth() == LocalDate.now().getDayOfMonth()) {
                 System.out.println(transaction);
             }
-        }
+        }*/
     }
 
     private void transactionByDay() {
-        Scanner scanner = new Scanner(System.in);
+   /*     Scanner scanner = new Scanner(System.in);
         System.out.println("Enter date of month: ");
         String date = scanner.nextLine();
         System.out.println("Enter month: ");
@@ -290,7 +289,7 @@ public class AdminController {
                     (String.valueOf(transaction.getCreatedDate().getYear()).equals(year))) {
                 System.out.println(transaction);
             }
-        }
+        }*/
 
 
     }
@@ -336,19 +335,9 @@ public class AdminController {
         return cardService;
     }
 
-    public void setTransactionRepository(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
 
-    public TransactionRepository getTransactionRepository() {
-        return transactionRepository;
-    }
 
-    public void setCardRepository(CardRepository cardRepository) {
-        this.cardRepository = cardRepository;
-    }
 
-    public CardRepository getCardRepository() {
-        return cardRepository;
-    }
+
+
 }

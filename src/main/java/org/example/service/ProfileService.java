@@ -2,15 +2,19 @@ package org.example.service;
 
 
 import org.example.container.ComponentContainer;
+import org.example.controller.AdminController;
 import org.example.dto.Profile;
 import org.example.enums.GeneralStatus;
 import org.example.repository.ProfileRepository;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
+@Component
 
 public class ProfileService {
 
     private ProfileRepository profileRepository;;
+    private AdminController adminController;
 
     public void profileList() {
         List<Profile> profileList = profileRepository.getProfileList();
@@ -40,5 +44,13 @@ public class ProfileService {
 
     public ProfileRepository getProfileRepository() {
         return profileRepository;
+    }
+
+    public void setAdminController(AdminController adminController) {
+        this.adminController = adminController;
+    }
+
+    public AdminController getAdminController() {
+        return adminController;
     }
 }

@@ -6,14 +6,14 @@ import org.example.dto.Terminal;
 import org.example.enums.GeneralStatus;
 import org.example.repository.TerminalRepository;
 import org.example.repository.TransactionRepository;
+import org.springframework.stereotype.Component;
 
 import java.time.LocalDateTime;
 import java.util.List;
+@Component
 
 public class TerminalService {
 
-
-    private static TransactionRepository transactionRepository;
     private static TerminalRepository terminalRepository;
 
     public void addTerminal(Terminal terminal) {
@@ -70,13 +70,6 @@ public class TerminalService {
         terminalRepository.deleteTerminal(code);
     }
 
-    public void setTransactionRepository(TransactionRepository transactionRepository) {
-        this.transactionRepository = transactionRepository;
-    }
-
-    public TransactionRepository getTransactionRepository() {
-        return transactionRepository;
-    }
 
     public void setTerminalRepository(TerminalRepository terminalRepository) {
         this.terminalRepository = terminalRepository;
